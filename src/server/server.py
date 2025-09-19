@@ -215,7 +215,11 @@ class Server(Singleton):
             if not ToolUtil.IsipAddress(self.imageServer):
                 request.url = request.url.replace(host, self.imageServer)
 
-        if not request.isUseHttps:
+        # 强制localhost使用HTTP协议（本地图片服务器只支持HTTP）
+        host = ToolUtil.GetUrlHost(request.url)
+        if "localhost" in host or "127.0.0.1" in host:
+            request.url = request.url.replace("https://", "http://")
+        elif not request.isUseHttps:
             request.url = request.url.replace("https://", "http://")
 
         if request.proxyUrl:

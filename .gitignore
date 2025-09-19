@@ -286,3 +286,5 @@ dist
 
 # Local Netlify folder
 .netlify
+
+.history

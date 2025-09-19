@@ -26,17 +26,30 @@ class GlobalConfig:
     # web url
     WebDnsList = GlobalItem([])
 
-
     LocalProxyIndex = [2, 3]
     Address = GlobalItem(["104.21.91.145", "188.114.98.153"])
-    AddressIpv6 = GlobalItem(["2606:4700:d:28:dbf4:26f3:c265:73bc", "2a06:98c1:3120:ca71:be2c:c721:d2b5:5dbf"])
+    AddressIpv6 = GlobalItem(
+        [
+            "2606:4700:d:28:dbf4:26f3:c265:73bc",
+            "2a06:98c1:3120:ca71:be2c:c721:d2b5:5dbf",
+        ]
+    )
     ImageUrl = GlobalItem("s3.picacomic.com")
-    ImageServerList = GlobalItem(["s3.picacomic.com", "storage.diwodiwo.xyz", "s2.picacomic.com",
-                                  "storage1.picacomic.com", "storage-b.picacomic.com",
-                                  "storage1.go2778.com",
-                                  "storage-b.go2778.com"
-                                  ])
-    ImageJumList = GlobalItem(["img.picacomic.com", "img.diwodiwo.xyz", "img.safedataplj.com"])
+    ImageServerList = GlobalItem(
+        [
+            "s3.picacomic.com",
+            "storage.diwodiwo.xyz",
+            "s2.picacomic.com",
+            "storage1.picacomic.com",
+            "storage-b.picacomic.com",
+            "storage1.go2778.com",
+            "storage-b.go2778.com",
+            "localhost:9180",
+        ]
+    )
+    ImageJumList = GlobalItem(
+        ["img.picacomic.com", "img.diwodiwo.xyz", "img.safedataplj.com"]
+    )
 
     ProxyApiDomain = GlobalItem("bika-api.ggo.icu")
     ProxyImgDomain = GlobalItem("bika-img.ggo.icu")
@@ -45,7 +58,9 @@ class GlobalConfig:
     ProxyImgDomain2 = GlobalItem("bika21-img.ggo.icu")
 
     # 使用sni欺骗，避免
-    SniDomain = GlobalItem(["picacomic.com", "diwodiwo.xyz", "tipatipa.xyz", "wikawika.xyz"])
+    SniDomain = GlobalItem(
+        ["picacomic.com", "diwodiwo.xyz", "tipatipa.xyz", "wikawika.xyz"]
+    )
 
     def __init__(self):
         pass
@@ -60,6 +75,7 @@ class GlobalConfig:
                 return GlobalConfig.Address.value[i]
         else:
             return ""
+
     #
     # @staticmethod
     # def GetImageServer(index):
@@ -78,7 +94,7 @@ class GlobalConfig:
             else:
                 return GlobalConfig.Address.value[i]
         else:
-            return  ""
+            return ""
 
     @staticmethod
     def LoadSetting():
@@ -89,7 +105,11 @@ class GlobalConfig:
                 newKv[k] = v
             oldV = newKv.get("Ver", 0)
             if GlobalConfig.Ver.value > oldV:
-                Log.Debug("can not load old config, ver:{}->{}".format(oldV, GlobalConfig.Ver.value))
+                Log.Debug(
+                    "can not load old config, ver:{}->{}".format(
+                        oldV, GlobalConfig.Ver.value
+                    )
+                )
             else:
                 for k, v in newKv.items():
                     value = getattr(GlobalConfig, k, "")
